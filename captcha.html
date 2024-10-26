@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloudflare Turnstile</title>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -14,23 +16,24 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            overflow: hidden;  
+            overflow: hidden;
         }
+
         .cf-turnstile {
-            transform: scale(2.0);  
-            transform-origin: center; 
+            transform: scale(2.0);
+            transform-origin: center;
         }
     </style>
 </head>
+
 <body>
-    <div class="cf-turnstile"
-         data-sitekey="0x4AAAAAAAydnpqvLUNOb01F"
-         data-callback="onCaptchaSuccess"></div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAydnpqvLUNOb01F" data-callback="onCaptchaSuccess"></div>
 
     <script>
         function onCaptchaSuccess(token) {
-            document.location = 'callbackscheme://status=success&token=' + encodeURIComponent(token);
+            window.parent.postMessage(JSON.stringify({ status: "success", token: token }), "*");
         }
     </script>
 </body>
+
 </html>
