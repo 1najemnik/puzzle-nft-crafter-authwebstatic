@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,15 +17,16 @@
         }
     </style>
 </head>
+
 <body>
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAydnpqvLUNOb01F" data-callback="onCaptchaSuccess"></div>
     <script>
         function onCaptchaSuccess(token) {
-            if (window.isNative) {
+            console.log("Attempting to onCaptchaSuccess"); 
+                window.puzzlenftInterface && window.puzzlenftInterface.onCaptchaSuccess(token);
+
+                console.log("Attempting to set document.location for native:", token);
                 document.location = `puzzlenft://captcha?token=${token}`;
-            } else {
-                window.parent.postMessage(token, "*");
-            }
         }
     </script>
 </body>
