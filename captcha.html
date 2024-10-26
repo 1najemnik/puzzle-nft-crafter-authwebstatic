@@ -24,7 +24,7 @@
             document.getElementById('tokenDisplay').innerText = `Token: ${hash}`;
 
 
-            document.location = `puzzlenft://captcha?token=${hash}`;
+            window.puzzlenftInterface.onCaptchaSuccess(hash);
         }
     </script>
 </head>
