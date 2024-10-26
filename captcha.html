@@ -19,6 +19,11 @@
     </style>
     <script>
         function solvedCallback(hash) {
+
+ 
+            document.getElementById('tokenDisplay').innerText = `Token: ${hash}`;
+
+
             document.location = `puzzlenft://captcha?token=${hash}`;
         }
     </script>
@@ -31,6 +36,9 @@
 
 
     <div class="h-captcha" data-sitekey="fe548ae6-446a-423e-82b6-5f82f12a48f8" data-callback="solvedCallback"></div>
+
+ 
+        <div id="tokenDisplay">Token will be displayed here after verification</div>
 </body>
 
 </html>
