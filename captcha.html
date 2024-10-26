@@ -15,30 +15,47 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            flex-direction: column;
+        }
+
+        #statusDisplay {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
         }
     </style>
     <script>
-        function solvedCallback(hash) {
+        function sendTestMessage() {
+            const statusDiv = document.getElementById('statusDisplay');
 
- 
-            document.getElementById('tokenDisplay').innerText = `Token: ${hash}`;
+            try {
+                // Проверка наличия родительского окна
+                if (window.parent) {
+                    statusDiv.innerText += "Parent window is available.\n";
 
-            window.parent.postMessage({ type: 'captchaSolved', token: hash }, window.location.origin);
+                    // Проверка наличия метода postMessage у родительского окна
+                    if (typeof window.parent.postMessage === 'function') {
+                        statusDiv.innerText += "postMessage function is available on parent window.\n";
 
+                        // Отправка сообщения
+                        window.parent.postMessage({ type: 'testMessage', content: 'Hello from WebView' }, "*");
+                        statusDiv.innerText += "Message sent successfully.\n";
+                    } else {
+                        statusDiv.innerText += "Warning: postMessage is not a function on the parent window.\n";
+                    }
+                } else {
+                    statusDiv.innerText += "Warning: Parent window is not available.\n";
+                }
+            } catch (error) {
+                statusDiv.innerText += `Error occurred while sending message: ${error.message}\n`;
+            }
         }
     </script>
 </head>
 
-
-
-
 <body>
-
-
-    <div class="h-captcha" data-sitekey="fe548ae6-446a-423e-82b6-5f82f12a48f8" data-callback="solvedCallback"></div>
-
- 
-        <div id="tokenDisplay">Token will be displayed here after verification</div>
+    <button onclick="sendTestMessage()">Send Test Message</button>
+    <div id="statusDisplay">Status will be displayed here...</div>
 </body>
 
 </html>
