@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script
-    src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
-    defer
-  ></script>
+    <script src="https://js.hcaptcha.com/1/api.js" type="text/javascript" async defer></script>
+
     <style>
         body,
         html {
@@ -20,23 +18,19 @@
         }
     </style>
     <script>
-
-window.onloadTurnstileCallback = function () {
-  turnstile.render("#example-container", {
-    sitekey: "0x4AAAAAAAydnpqvLUNOb01F",
-    callback: function (token) {
-        document.location = `puzzlenft://captcha?token=${token}`;
-    },
-  });
-};
-
- 
+        function solvedCallback(hash) {
+            document.location = `puzzlenft://captcha?token=${response}`;
+        }
     </script>
 </head>
 
+
+
+
 <body>
-    <!-- Контейнер для рендеринга капчи -->
-    <div id="example-container"></div>
+
+
+    <div class="h-captcha" data-sitekey="fe548ae6-446a-423e-82b6-5f82f12a48f8" data-callback="solvedCallback"></div>
 </body>
 
 </html>
