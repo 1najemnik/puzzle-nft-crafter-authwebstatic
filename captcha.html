@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captcha Test</title>
 </head>
+
 <body>
     <p>Testing postMessage and URL Scheme from WebView</p>
 
     <script>
         function sendMessage() {
-            // Если доступен глобальный флаг nativeApp, то это Android/iOS
+            console.log("WebView: Проверка, отправляем URL-схему или postMessage");
             if (window.nativeApp) {
-                console.log("Running in native context, using URL scheme");
-                document.location.href = "testkey://status=success&message=Hello from WebView using URL scheme!";
+                console.log("WebView: Используется URL-схема");
+                document.location.href = "testkey://status=success&message=Hello from URL scheme!";
             } else {
-                // Если флага нет, это браузерный контекст
-                console.log("Running in browser context, using postMessage");
+                console.log("WebView: Используется postMessage");
                 window.parent.postMessage("Hello from WebView using postMessage!", "*");
             }
         }
 
-        // Отправка сообщения после загрузки страницы
-        window.onload = sendMessage;
+
+        window.onload = function () {
+            console.log("WebView: Страница загружена, отправка сообщения");
+            sendMessage();
+        }
     </script>
 </body>
+
 </html>
