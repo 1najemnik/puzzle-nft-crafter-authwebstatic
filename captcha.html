@@ -22,10 +22,10 @@
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAydnpqvLUNOb01F" data-callback="onCaptchaSuccess"></div>
     <script>
         function onCaptchaSuccess(token) {
-            console.log("Attempting to onCaptchaSuccess"); 
-                window.puzzlenftInterface && window.puzzlenftInterface.onCaptchaSuccess(token);
+ 
+                //window.puzzlenftInterface && window.puzzlenftInterface.onCaptchaSuccess(token);
 
-                console.log("Attempting to set document.location for native:", token);
+              
                 document.location = `puzzlenft://captcha?token=${token}`;
         }
     </script>
