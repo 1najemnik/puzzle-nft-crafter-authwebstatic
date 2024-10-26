@@ -3,28 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Captcha</title>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <style>
-        body, html {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e0efff;
-            overflow: hidden;
-        }
-    </style>
+    <title>Cross-Platform Test</title>
 </head>
 <body>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAydnpqvLUNOb01F" data-callback="onCaptchaSuccess"></div>
+    <p>Testing postMessage and URL Scheme from WebView</p>
 
     <script>
-        function onCaptchaSuccess(token) {
-            console.log("Captcha пройдена, токен:", token);
-            document.location = `testkey://status=success&token=${token}`;
+        // Браузерный метод — отправка сообщения через postMessage
+        if (window.parent) {
+            window.parent.postMessage("Hello from WebView using postMessage!", "*");
         }
+
+        // Метод для нативных платформ — использование URL-схемы
+        document.location = "testkey://status=success&message=Hello from WebView using URL scheme!";
     </script>
 </body>
 </html>
