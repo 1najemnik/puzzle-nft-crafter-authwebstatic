@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudflare Turnstile</title>
+    <title>Captcha</title>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
+        body, html {
+            width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            background-color: #e0efff;
             overflow: hidden;
-        }
-
-        .cf-turnstile {
-            transform: scale(2.0);
-            transform-origin: center;
         }
     </style>
 </head>
-
 <body>
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAydnpqvLUNOb01F" data-callback="onCaptchaSuccess"></div>
 
     <script>
         function onCaptchaSuccess(token) {
-            window.parent.postMessage(JSON.stringify({ status: "success", token: token }), "*");
+            console.log("Captcha пройдена, токен:", token);
+
+            // Проверяем, доступен ли объект cocosCallback, и вызываем метод
+            if (window.cocosCallback) {
+                window.cocosCallback.onCaptchaSuccess(token);
+            } else {
+                console.log("Объект cocosCallback не найден");
+            }
         }
     </script>
 </body>
-
 </html>
