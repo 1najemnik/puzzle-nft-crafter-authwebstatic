@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
+    defer
+  ></script>
     <style>
         body,
         html {
@@ -16,19 +19,24 @@
             overflow: hidden;
         }
     </style>
+    <script>
+
+window.onloadTurnstileCallback = function () {
+  turnstile.render("#example-container", {
+    sitekey: "0x4AAAAAAAydnpqvLUNOb01F",
+    callback: function (token) {
+        document.location = `puzzlenft://captcha?token=${token}`;
+    },
+  });
+};
+
+ 
+    </script>
 </head>
 
 <body>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAydnpqvLUNOb01F" data-callback="onCaptchaSuccess"></div>
-    <script>
-        function onCaptchaSuccess(token) {
- 
-                //window.puzzlenftInterface && window.puzzlenftInterface.onCaptchaSuccess(token);
-
-              
-                document.location = `puzzlenft://captcha?token=${token}`;
-        }
-    </script>
+    <!-- Контейнер для рендеринга капчи -->
+    <div id="example-container"></div>
 </body>
 
 </html>
