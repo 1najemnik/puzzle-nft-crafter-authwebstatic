@@ -40,6 +40,15 @@
                         // Отправка сообщения
                         window.parent.postMessage({ type: 'testMessage', content: 'Hello from WebView' }, "*");
                         statusDiv.innerText += "Message sent successfully.\n";
+
+                        // Повторная попытка отправки сообщения через 5 секунд для отладки
+                        setTimeout(() => {
+                            statusDiv.innerText += "Retrying message send...\n";
+                            window.parent.postMessage({ type: 'testMessage', content: 'Retry from WebView' }, "*");
+                            window.parent.postMessage({ type: 'testMessage', content: 'Hello from WebView' }, "https://verdant-alpaca-19b7e0.netlify.app");
+
+                            statusDiv.innerText += "Message retried successfully.\n";
+                        }, 5000);
                     } else {
                         statusDiv.innerText += "Warning: postMessage is not a function on the parent window.\n";
                     }
