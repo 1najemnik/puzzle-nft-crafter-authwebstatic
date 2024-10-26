@@ -10,15 +10,14 @@
 
     <script>
         function sendMessage() {
-            // Проверка на наличие window.parent для браузерной среды
-            if (typeof window.parent !== 'undefined' && window.parent !== window) {
-                // Это браузерный контекст
-                console.log("Running in browser context, using postMessage");
-                window.parent.postMessage("Hello from WebView using postMessage!", "*");
-            } else {
-                // Это нативная платформа (Android/iOS)
+            // Если доступен глобальный флаг nativeApp, то это Android/iOS
+            if (window.nativeApp) {
                 console.log("Running in native context, using URL scheme");
                 document.location.href = "testkey://status=success&message=Hello from WebView using URL scheme!";
+            } else {
+                // Если флага нет, это браузерный контекст
+                console.log("Running in browser context, using postMessage");
+                window.parent.postMessage("Hello from WebView using postMessage!", "*");
             }
         }
 
