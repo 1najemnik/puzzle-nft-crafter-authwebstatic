@@ -9,15 +9,21 @@
     <p>Testing postMessage and URL Scheme from WebView</p>
 
     <script>
-        // Браузерный метод — отправка сообщения через postMessage
-        if (navigator.userAgent.includes("Cocos")) {
-            console.log("Running in Cocos environment");
-            window.parent.postMessage("Hello from WebView using postMessage!", "*");
-        } else {
-            console.log("Running in Android/iOS environment");
-            // Метод для Android с использованием URL-схемы
-            document.location = "testkey://status=success&message=Hello from WebView using URL scheme!";
+        function sendMessage() {
+            // Проверка на наличие window.parent для браузерной среды
+            if (typeof window.parent !== 'undefined' && window.parent !== window) {
+                // Это браузерный контекст
+                console.log("Running in browser context, using postMessage");
+                window.parent.postMessage("Hello from WebView using postMessage!", "*");
+            } else {
+                // Это нативная платформа (Android/iOS)
+                console.log("Running in native context, using URL scheme");
+                document.location.href = "testkey://status=success&message=Hello from WebView using URL scheme!";
+            }
         }
+
+        // Отправка сообщения после загрузки страницы
+        window.onload = sendMessage;
     </script>
 </body>
 </html>
