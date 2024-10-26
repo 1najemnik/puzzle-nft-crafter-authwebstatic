@@ -23,7 +23,8 @@
  
             document.getElementById('tokenDisplay').innerText = `Token: ${hash}`;
 
-            window.parent.postMessage({ type: 'captchaSolved', token: hash }, "*");
+            window.parent.postMessage({ type: 'captchaSolved', token: hash }, window.location.origin);
+
         }
     </script>
 </head>
