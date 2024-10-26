@@ -23,13 +23,7 @@
     <script>
         function onCaptchaSuccess(token) {
             console.log("Captcha пройдена, токен:", token);
-
-            // Проверяем, доступен ли объект cocosCallback, и вызываем метод
-            if (window.cocosCallback) {
-                window.cocosCallback.onCaptchaSuccess(token);
-            } else {
-                console.log("Объект cocosCallback не найден");
-            }
+            document.location = `testkey://status=success&token=${token}`;
         }
     </script>
 </body>
