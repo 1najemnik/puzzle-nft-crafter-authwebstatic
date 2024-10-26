@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross-Platform Test</title>
+    <title>Captcha Test</title>
 </head>
 <body>
     <p>Testing postMessage and URL Scheme from WebView</p>
 
     <script>
         // Браузерный метод — отправка сообщения через postMessage
-        if (window.parent) {
+        if (navigator.userAgent.includes("Cocos")) {
+            console.log("Running in Cocos environment");
             window.parent.postMessage("Hello from WebView using postMessage!", "*");
+        } else {
+            console.log("Running in Android/iOS environment");
+            // Метод для Android с использованием URL-схемы
+            document.location = "testkey://status=success&message=Hello from WebView using URL scheme!";
         }
-
-        // Метод для нативных платформ — использование URL-схемы
-        document.location = "testkey://status=success&message=Hello from WebView using URL scheme!";
     </script>
 </body>
 </html>
